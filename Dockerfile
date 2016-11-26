@@ -5,9 +5,14 @@ ADD http://fhem.de/fhem-5.7.deb /tmp/fhem.deb
 RUN set -ex \
  && apt-get update \
  && dpkg -i /tmp/fhem.deb || apt-get install -fy \
- && apt-get install -y libjson-perl
+ && apt-get install -y libjson-perl libxml-simple-perl psmisc
 
 WORKDIR /opt/fhem
+
+RUN set -ex \
+ && perl fhem.pl fhem.cfg \
+ && perl fhem.pl 7072 update \
+ && killall -9 perl
 
 EXPOSE 8083 8084 8085 7072
 VOLUME ["/data"]
