@@ -1,11 +1,23 @@
 FROM debian
 
-ADD http://fhem.de/fhem-5.8.deb /tmp/fhem.deb
+ENV FHEM_BASE_VERSION 5.8
 
 RUN set -ex \
  && apt-get update \
- && dpkg -i /tmp/fhem.deb || apt-get install -fy \
- && apt-get install -y libjson-perl libxml-simple-perl psmisc
+ && apt-get -y install \
+      perl-base libdevice-serialport-perl libwww-perl libio-socket-ssl-perl \
+      libcgi-pm-perl libjson-perl sqlite3 libdbd-sqlite3-perl libtext-diff-perl \
+      libtimedate-perl libmail-imapclient-perl libgd-graph-perl \
+      libtext-csv-perl libxml-simple-perl liblist-moreutils-perl ttf-liberation \
+      libimage-librsvg-perl libgd-text-perl libsocket6-perl libio-socket-inet6-perl \
+      libmime-base64-perl libimage-info-perl libusb-1.0-0-dev libnet-server-perl \
+      psmisc curl \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN set -ex \
+ && mkdir -p /opt/fhem \
+ && curl -sSLf http://fhem.de/fhem-${FHEM_BASE_VERSION}.tar.gz | \
+    tar -xzv --strip-components=1 -C /opt/fhem -f -
 
 WORKDIR /opt/fhem
 
