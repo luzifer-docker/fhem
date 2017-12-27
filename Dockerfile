@@ -1,6 +1,6 @@
 FROM debian
 
-ADD http://fhem.de/fhem-5.7.deb /tmp/fhem.deb
+ADD http://fhem.de/fhem-5.8.deb /tmp/fhem.deb
 
 RUN set -ex \
  && apt-get update \
@@ -11,8 +11,9 @@ WORKDIR /opt/fhem
 
 RUN set -ex \
  && perl fhem.pl fhem.cfg \
+ && perl fhem.pl 7072 "attr global updateInBackground 0" \
  && perl fhem.pl 7072 update \
- && killall -9 perl
+ && perl fhem.pl 7072 shutdown
 
 EXPOSE 8083 8084 8085 7072
 VOLUME ["/data"]
