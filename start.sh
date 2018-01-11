@@ -5,7 +5,7 @@ set -euo pipefail
 [ -e /data/config.cfg ] || cp /opt/fhem/fhem.cfg /data/config.cfg
 
 # Install custom modules if present
-[ -d /data/custom-modules ] && cp /data/custom-modules/* /opt/fhem/contrib/
+[ -d /data/custom-modules ] && cp /data/custom-modules/* /opt/fhem/FHEM/
 
 # Ensure fhem can access its own files
 chown -R fhem: /opt/fhem
