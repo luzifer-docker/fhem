@@ -12,7 +12,10 @@ RUN set -ex \
       libimage-librsvg-perl libgd-text-perl libsocket6-perl libio-socket-inet6-perl \
       libmime-base64-perl libimage-info-perl libusb-1.0-0-dev libnet-server-perl \
       psmisc curl procps \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
+ && curl -sSLfo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64 \
+ && chmod +x /usr/local/bin/dumb-init
+
 
 RUN set -ex \
  && mkdir -p /opt/fhem \
@@ -25,7 +28,9 @@ RUN set -ex \
  && perl fhem.pl fhem.cfg \
  && perl fhem.pl 7072 "attr global updateInBackground 0" \
  && perl fhem.pl 7072 update \
- && perl fhem.pl 7072 shutdown
+ && perl fhem.pl 7072 shutdown \
+ && rm -rf log/* \
+ && adduser --home /opt/fhem --system --disabled-password fhem
 
 EXPOSE 8083 8084 8085 7072
 VOLUME ["/data"]
