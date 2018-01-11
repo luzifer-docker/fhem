@@ -30,7 +30,8 @@ RUN set -ex \
  && perl fhem.pl 7072 update \
  && perl fhem.pl 7072 shutdown \
  && rm -rf log/* \
- && adduser --home /opt/fhem --system --disabled-password fhem
+ && adduser --home /opt/fhem --system --disabled-password fhem \
+ && adduser fhem dialout
 
 EXPOSE 8083 8084 8085 7072
 VOLUME ["/data"]
