@@ -11,7 +11,7 @@ RUN set -ex \
       libtext-csv-perl libxml-simple-perl liblist-moreutils-perl ttf-liberation \
       libimage-librsvg-perl libgd-text-perl libsocket6-perl libio-socket-inet6-perl \
       libmime-base64-perl libimage-info-perl libusb-1.0-0-dev libnet-server-perl \
-      psmisc curl \
+      psmisc curl procps \
  && rm -rf /var/lib/apt/lists/*
 
 RUN set -ex \

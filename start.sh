@@ -2,7 +2,7 @@
 set -euo pipefail
 
 function finish {
-  pgrep perl | xargs -r kill
+  pkill perl
 }
 trap finish EXIT
 
