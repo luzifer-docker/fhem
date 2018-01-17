@@ -11,8 +11,11 @@ RUN set -ex \
       libtext-csv-perl libxml-simple-perl liblist-moreutils-perl ttf-liberation \
       libimage-librsvg-perl libgd-text-perl libsocket6-perl libio-socket-inet6-perl \
       libmime-base64-perl libimage-info-perl libusb-1.0-0-dev libnet-server-perl \
-      psmisc curl procps \
+      build-essential mosquitto-clients psmisc curl procps cpanminus \
  && rm -rf /var/lib/apt/lists/* \
+ && cpanm \
+      Module::Pluggable \
+      Net::MQTT::Simple \
  && curl -sSLfo /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64 \
  && chmod +x /usr/local/bin/dumb-init
 
