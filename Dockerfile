@@ -42,3 +42,6 @@ VOLUME ["/data"]
 ADD start.sh /usr/local/bin/start.sh
 
 CMD ["/usr/local/bin/start.sh"]
+
+HEALTHCHECK --interval=1m --timeout=10s \
+  CMD bash -c 'perl fhem.pl 7072 uptime || exit 1'
